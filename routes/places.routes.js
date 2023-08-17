@@ -5,13 +5,19 @@ const isAuth = require("../middlewares/isAuth.js");
 const { isAuthorPlace } = require("../middlewares/isAuthor.js");
 const PlaceControllers = require("../controllers/places.controller");
 const { validatePlace } = require("../middlewares/validator.js");
+const upload = require("../config/multer.js");
 
 const router = express.Router();
 
 router
   .route("/")
   .get(wrapAsync(PlaceControllers.index))
-  .post(isAuth, validatePlace, wrapAsync(PlaceControllers.store));
+  .post(
+    isAuth,
+    upload.array("image", 5),
+    validatePlace,
+    wrapAsync(PlaceControllers.store)
+  );
 
 router.get("/create", isAuth, PlaceControllers.create);
 
@@ -20,6 +26,7 @@ router
   .get(isValidobjectId("/places"), wrapAsync(PlaceControllers.show))
   .put(
     isAuth,
+    upload.array("image", 5),
     isAuthorPlace,
     isValidobjectId("/places"),
     validatePlace,

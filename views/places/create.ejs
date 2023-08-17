@@ -2,7 +2,13 @@
 
 <h1 class="text-center">Add Place</h1>
 <div class="col-6 offset-3">
-  <form action="/places" method="post" class="mb-4 validated-from" novalidate>
+  <form
+    action="/places"
+    method="post"
+    class="mb-4 validated-from"
+    novalidate
+    enctype="multipart/form-data"
+  >
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input
@@ -58,11 +64,13 @@
     <div class="mb-3">
       <label for="image" class="form-label">Image</label>
       <input
-        type="text"
-        name="place[image]"
+        type="file"
+        name="image"
         id="image"
         class="form-control"
         required
+        accept="image/*"
+        multiple
       />
       <div class="valid-feedback">Looks good!</div>
       <div class="invalid-feedback">Please fill out this field.</div>
