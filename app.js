@@ -9,11 +9,12 @@ const path = require("path");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const dotenv = require("dotenv").config();
 const app = express();
 
 //  Connect to mongodb
 mongoose
-  .connect("mongodb://127.0.0.1/bestpoints")
+  .connect(process.env.DB)
   .then((result) => {
     console.log("Connect to mongodb...");
   })
